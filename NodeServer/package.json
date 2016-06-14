@@ -1,0 +1,21 @@
+{
+  "name": "glass_server",
+  "version": "1.0.0",
+  "description": "This server will handle the calls from the device to populate the charts ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "google",
+    "glass",
+    "mongodb",
+    "charts"
+  ],
+  "author": "Carlos Rebelato, Camilo Sad, Cristina Bazzano",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.4",
+    "mongodb": "^2.1.18"
+  }
+}
