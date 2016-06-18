@@ -1,13 +1,14 @@
 # open terminal and run 'gem install mongo' before executing this code
+# run 'mongod'
 # remove comment tags according to what you want to do
-# nivigate to db folder and run 'ruby seed.rb' to execute this code
+# in a new terminal tab, nivigate to db folder and run 'ruby seed.rb' to execute this code
 
 require 'mongo'
 require 'date'
 include Mongo
 
 
-mongo_client = Mongo::Client.new([ '127.0.0.1:27017' ], :database => 'iit-data')
+mongo_client = Mongo::Client.new([ '127.0.0.1:27017' ], :database => 'iit-project')
 mongo_client.database.drop
 measures = mongo_client[:measures]
 
@@ -41,4 +42,11 @@ puts 'Number of records: ' + measures.find().count.to_s
 
 # print all collections in the database
 # puts mongo_client.database.collection_names
+
+
+# after running this code you can use this command (in your terminal) to export your data to a json file
+# mongoexport --db iit-project --collection measures --out measures.json
+
+# in case you want to import data, use this command (in your terminal)
+# mongoimport --db iit-project --collection measures --file measures.json
 
