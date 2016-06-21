@@ -55,6 +55,8 @@ public class MainActivity extends Activity {
         this.createUiElements();
         mView = buildView();
 
+
+
         mCardScroller = new CardScrollView(this);
         mCardScroller.setAdapter(new CardScrollAdapter() {
             @Override
@@ -109,10 +111,18 @@ public class MainActivity extends Activity {
      */
     private View buildView() {
         CardBuilder card = new CardBuilder(this, CardBuilder.Layout.TEXT);
-        Bitmap image = this.barChart.getChartBitmap();
-        image.setHeight(50);
-        image.setWidth(50);
-        card.addImage(image);
+
+        //Bitmap image = this.barChart.getChartBitmap();
+
+        //while (image.getHeight() <= 0 || image.getWidth() <= 0);
+        //image.setHeight(50);
+        //image.setWidth(50);
+        //card.addImage(R.drawable.ic_glass_logo);
+        //card.addImage(image);
+        card.setText("Hello TEST");
+
+        //this.barChart.saveToPath("title", );
+
         return card.getView();
     }
 
@@ -133,6 +143,7 @@ public class MainActivity extends Activity {
         months.add("December");
         this.configureUiElements();
         this.setData(12, 50);
+
     }
 
     private void configureUiElements(){
@@ -179,6 +190,9 @@ public class MainActivity extends Activity {
 
             barChart.setData(data);
         }
+
+        this.barChart.invalidate();
+
     }
 
 
