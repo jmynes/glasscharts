@@ -1,4 +1,7 @@
-# open terminal and run 'gem install mongo' before executing this code
+# HOW TO
+
+# assuming you have ruby > 2.1 installed
+# open terminal and run 'gem install mongo'
 # run 'mongod'
 # remove comment tags according to what you want to do
 # in a new terminal tab, nivigate to db folder and run 'ruby seed.rb' to execute this code
@@ -15,12 +18,12 @@ measures = mongo_client[:measures]
 devices = ['device1', 'device2', 'device3']
 
 # populate measures collection with 20 records for each device and the current datetime
-devices.each_with_index do |device, index|
+devices.each do |device|
   20.times do |index|
     record = {device: device, temperature: Random.new.rand(0.1..50.1),
      pressure: Random.new.rand(0.1..50.1),
      humidity: Random.new.rand(0.1..50.1),
-     datetime: DateTime.now - index}
+     datetime: DateTime.now - (index * 2)}
 
     measures.insert_one(record)
   end
