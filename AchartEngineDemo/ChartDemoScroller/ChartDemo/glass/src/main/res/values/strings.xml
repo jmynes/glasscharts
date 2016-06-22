@@ -3,7 +3,7 @@
     <string name="title_activity_main">Chart Scroller</string>
     <string name="hello_world">Hello world!</string>
 
-    <string name="glass_voice_trigger">Show me the Weather</string>
+    <string name="glass_voice_trigger">Show Measurements</string>
     <string name="glass_voice_prompt">What first?</string>
 
 </resources>
