@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tap_msg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="-10px"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="60px"
+        android:gravity="center"
+        android:text="@string/msg_tap_to_menu"/>
+</FrameLayout>
+
+

@@ -6,4 +6,5 @@
     <string name="pressure_chart">Pressure Chart</string>
     <string name="humidity_chart">Humidity Chart</string>
     <string name="main_menu">Main Menu</string>
+    <string name="msg_tap_to_menu">Please tap to launch menu</string>
 </resources>
