@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Glass Data Presentation</string>
+    <string name="title_activity_main">Glass Data Presentation</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="temperature_chart">Temperature Chart</string>
+    <string name="pressure_chart">Pressure Chart</string>
+    <string name="humidity_chart">Humidity Chart</string>
+    <string name="main_menu">Main Menu</string>
+</resources>
