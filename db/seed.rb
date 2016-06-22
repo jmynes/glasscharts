@@ -14,10 +14,14 @@ measures = mongo_client[:measures]
 
 devices = ['device1', 'device2', 'device3']
 
-# populate measures collection with 20 records for each device
-devices.each do |d|
-  20.times do |i|
-    record = {device: d, temperature: Random.new.rand(0.1..50.1), pressure: Random.new.rand(0.1..50.1), datetime: DateTime.now}
+# populate measures collection with 20 records for each device and the current datetime
+devices.each_with_index do |device, index|
+  20.times do |index|
+    record = {device: device, temperature: Random.new.rand(0.1..50.1),
+     pressure: Random.new.rand(0.1..50.1),
+     humidity: Random.new.rand(0.1..50.1),
+     datetime: DateTime.now - index}
+
     measures.insert_one(record)
   end
 end
