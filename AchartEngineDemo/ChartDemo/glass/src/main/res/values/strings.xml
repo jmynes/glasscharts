@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Chart Demo</string>
+    <string name="title_activity_main">Chart Immersion</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="glass_voice_trigger">Show me the Weather</string>
+    <string name="glass_voice_prompt">What first?</string>
+
+</resources>
