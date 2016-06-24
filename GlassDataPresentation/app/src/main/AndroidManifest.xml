@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="gdp.glassdatapresentation">
 
+    <uses-permission
+        android:name="com.google.android.glass.permission.DEVELOPMENT" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +13,7 @@
         <activity
             android:name=".MainActivity"
             android:icon="@drawable/ic_glass_logo"
-            android:label="@string/title_activity_main">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +26,7 @@
         </activity>
         <activity android:name=".TemperatureChartActivity" />
         <activity android:name=".PressureChartActivity" />
-        <activity android:name=".UmidityChartActivity"></activity>
+        <activity android:name=".HumidityChartActivity"/>
     </application>
 
 </manifest>

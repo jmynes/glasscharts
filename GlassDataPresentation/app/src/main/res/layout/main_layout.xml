@@ -10,7 +10,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="-10px"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="60px"
+        android:textSize="50px"
         android:gravity="center"
         android:text="@string/msg_tap_to_menu"/>
 </FrameLayout>
