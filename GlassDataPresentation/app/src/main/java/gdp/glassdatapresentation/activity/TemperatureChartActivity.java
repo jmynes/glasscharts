@@ -5,6 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -28,6 +32,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+
+import gdp.glassdatapresentation.R;
 
 // AchartEngine lib imports
 
@@ -66,9 +72,19 @@ public class TemperatureChartActivity extends Activity {
         mCardScrollView.activate();
 
         // Handle the TAP and SCROLL UP events.
-        mGestureDetector = createGestureDetector(this);
+        mGestureDetector = createGestureDetector(this.getApplicationContext());
 
         setContentView(mCardScrollView);
+    }
+
+    /*
+    * Handles the Motion Event
+    * */
+    public boolean onGenericMotionEvent(MotionEvent event) {
+        if (mGestureDetector != null) {
+            return mGestureDetector.onMotionEvent(event);
+        }
+        return false;
     }
 
     /**
@@ -252,7 +268,8 @@ public class TemperatureChartActivity extends Activity {
             @Override
             public boolean onGesture(Gesture gesture) {
                 if (gesture == Gesture.TAP) {
-                    startActivity(new Intent(context, MainActivity.class));
+                    openOptionsMenu();
+                    //startActivity(new Intent(context, MainActivity.class));
                     return true;
                 } else if (gesture == Gesture.SWIPE_UP) {
                     startActivity(new Intent(context, HumidityChartActivity.class));
@@ -264,4 +281,37 @@ public class TemperatureChartActivity extends Activity {
 
         return gestureDetector;
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.chartsmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.removeItem(R.id.main_menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.pressure_chart:
+                startActivity(new Intent(this, PressureChartActivity.class));
+                return true;
+            case R.id.temperature_chart:
+                startActivity(new Intent(this, TemperatureChartActivity.class));
+                return true;
+            case R.id.humidity_chart:
+                startActivity(new Intent(this, HumidityChartActivity.class));
+                return true;
+            default: return super.onOptionsItemSelected(item);
+        }
+    }
+
 }
+
