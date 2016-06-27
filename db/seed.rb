@@ -11,7 +11,11 @@ require 'date'
 include Mongo
 
 
-mongo_client = Mongo::Client.new([ '127.0.0.1:27017' ], :database => 'iit-project')
+mongo_client = Mongo::Client.new('mongodb://ds015902.mlab.com:15902',
+  database: 'heroku_7zq6pndf',
+  user: 'heroku_7zq6pndf',
+  password: 'vhr36uo60e152jsi3mkbkq8r40')
+
 mongo_client.database.drop
 measures = mongo_client[:measures]
 
