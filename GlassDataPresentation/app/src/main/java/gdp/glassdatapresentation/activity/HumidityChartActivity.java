@@ -1,4 +1,4 @@
-package gdp.glassdatapresentation;
+package gdp.glassdatapresentation.activity;
 
 import android.app.Activity;
 import android.content.Context;

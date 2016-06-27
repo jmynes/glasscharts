@@ -1,4 +1,4 @@
-package gdp.glassdatapresentation;
+package gdp.glassdatapresentation.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -41,7 +41,7 @@ import java.util.Random;
  *
  * @see <a href="https://developers.google.com/glass/develop/gdk/touch">GDK Developer Guide</a>
  */
-public class TemperatureChartActivity extends Activity {
+public class PressureChartActivity extends Activity {
 
     // number of data series to be plotted
     private static final int SERIES_NR = 3;
@@ -49,7 +49,7 @@ public class TemperatureChartActivity extends Activity {
     // litener to process recognized gestures
     private GestureDetector mGestureDetector;
 
-    // to handle the Cardscroller views
+    // to handle the Cardscroller views 
     private List<GraphicalView> cViews;
     private CardScrollView mCardScrollView;
     private ChartViewCardScrollAdapter mAdapter;
@@ -104,19 +104,19 @@ public class TemperatureChartActivity extends Activity {
         switch (chartType){
             case 'd':
                 // day data
-                gView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer("Temperature of the Day", "Time of Day", "Temperature (*F)"));
+                gView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer("Pressure of the Day", "Time of Day", "Pressure (Pa)"));
                 break;
             case 'w':
                 // week data
-                gView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer("Temperature by Week", "Week Date", "Temperature (*F)"));
+                gView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer("Pressure by Week", "Week Date", "Pressure (Pa)"));
                 break;
             case 'm':
                 //month data
-                gView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer("Temperature by Month", "Month", "Temperature (*F)"));
+                gView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer("Pressure by Month", "Month", "Pressure (Pa)"));
                 break;
             case 't':
                 // time chart
-                gView = ChartFactory.getTimeChartView(this, getDateDemoDataset(), getDemoRenderer("Time Chart", "x Values", "Temperature (*F)"), null);
+                gView = ChartFactory.getTimeChartView(this, getDateDemoDataset(), getDemoRenderer("Time Chart", "x Values", "Pressure (Pa)"), null);
                 break;
         }
         return gView;
@@ -248,14 +248,14 @@ public class TemperatureChartActivity extends Activity {
     private GestureDetector createGestureDetector(final Context context) {
         GestureDetector gestureDetector = new GestureDetector(context);
         //Create a base listener for generic gestures
-        gestureDetector.setBaseListener( new GestureDetector.BaseListener() {
+        gestureDetector.setBaseListener(new GestureDetector.BaseListener() {
             @Override
             public boolean onGesture(Gesture gesture) {
                 if (gesture == Gesture.TAP) {
                     startActivity(new Intent(context, MainActivity.class));
                     return true;
                 } else if (gesture == Gesture.SWIPE_UP) {
-                    startActivity(new Intent(context, HumidityChartActivity.class));
+                    startActivity(new Intent(context, TemperatureChartActivity.class));
                     return true;
                 }
                 return false;

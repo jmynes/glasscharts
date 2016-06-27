@@ -1,4 +1,4 @@
-package gdp.glassdatapresentation.utils;
+package gdp.glassdatapresentation.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;

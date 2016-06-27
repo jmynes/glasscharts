@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:icon="@drawable/ic_glass_logo"
             android:label="@string/app_name">
             <intent-filter>
@@ -24,9 +24,9 @@
                 android:name="com.google.android.glass.VoiceTrigger"
                 android:resource="@xml/voice_trigger" />
         </activity>
-        <activity android:name=".TemperatureChartActivity" />
-        <activity android:name=".PressureChartActivity" />
-        <activity android:name=".HumidityChartActivity"/>
+        <activity android:name=".activity.TemperatureChartActivity" />
+        <activity android:name=".activity.PressureChartActivity" />
+        <activity android:name=".activity.HumidityChartActivity"/>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package gdp.glassdatapresentation;
+package gdp.glassdatapresentation.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.view.MotionEvent;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
+
+import gdp.glassdatapresentation.R;
 
 public class MainActivity extends Activity {
 

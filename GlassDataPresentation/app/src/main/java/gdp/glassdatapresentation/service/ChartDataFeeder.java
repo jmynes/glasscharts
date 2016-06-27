@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import gdp.glassdatapresentation.entity.ChartEntry;
-import gdp.glassdatapresentation.utils.DateUtil;
+import gdp.glassdatapresentation.util.DateUtil;
 
 /**
  * Created by cadu on 24/06/2016.
