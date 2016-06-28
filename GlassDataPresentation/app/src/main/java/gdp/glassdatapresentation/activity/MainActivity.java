@@ -14,6 +14,7 @@ import com.google.android.glass.touchpad.GestureDetector;
 import gdp.glassdatapresentation.R;
 
 public class MainActivity extends Activity {
+    public static boolean isActive = false;
 
     private GestureDetector mGestureDetector;
 
@@ -31,17 +32,16 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+
         setContentView(R.layout.main_layout);
         mGestureDetector = new GestureDetector(this.getApplicationContext()).setBaseListener(mBaseListener);
     }
 
-    @Override
-    protected void onResume() {
+    protected void onResume(){
         super.onResume();
+        isActive = true;
     }
-
-    @Override
-    protected void onPause() {
+    protected void onPause(){
         super.onPause();
     }
 
@@ -64,13 +64,25 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.pressure_chart:
-                startActivity(new Intent(this, PressureChartActivity.class));
+                Intent pressure = new Intent(this, PressureChartActivity.class);
+                if (PressureChartActivity.isActive) {
+                    pressure.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                }
+                startActivity(pressure);
                 return true;
             case R.id.temperature_chart:
-                startActivity(new Intent(this, TemperatureChartActivity.class));
+                Intent temperature = new Intent(this, TemperatureChartActivity.class);
+                if (TemperatureChartActivity.isActive) {
+                    temperature.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                }
+                startActivity(temperature);
                 return true;
             case R.id.humidity_chart:
-                startActivity(new Intent(this, HumidityChartActivity.class));
+                Intent humidity = new Intent(this, HumidityChartActivity.class);
+                if (HumidityChartActivity.isActive) {
+                    humidity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                }
+                startActivity(humidity);
                 return true;
             default: return super.onOptionsItemSelected(item);
         }

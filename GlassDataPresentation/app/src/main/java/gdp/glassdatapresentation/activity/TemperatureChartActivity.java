@@ -48,6 +48,8 @@ import gdp.glassdatapresentation.R;
  * @see <a href="https://developers.google.com/glass/develop/gdk/touch">GDK Developer Guide</a>
  */
 public class TemperatureChartActivity extends Activity {
+    // control transitioning between activities
+    public static boolean isActive = false;
 
     // number of data series to be plotted
     private static final int SERIES_NR = 3;
@@ -63,7 +65,6 @@ public class TemperatureChartActivity extends Activity {
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-
         createChartViews();
 
         mCardScrollView = new CardScrollView(this);
@@ -100,14 +101,15 @@ public class TemperatureChartActivity extends Activity {
 
     @Override
     protected void onResume() {
-        mCardScrollView.activate();
         super.onResume();
+        isActive = true;
+        mCardScrollView.activate();
     }
 
     @Override
     protected void onPause() {
-        mCardScrollView.deactivate();
         super.onPause();
+        mCardScrollView.deactivate();
     }
 
     /**
@@ -269,10 +271,14 @@ public class TemperatureChartActivity extends Activity {
             public boolean onGesture(Gesture gesture) {
                 if (gesture == Gesture.TAP) {
                     openOptionsMenu();
-                    //startActivity(new Intent(context, MainActivity.class));
                     return true;
                 } else if (gesture == Gesture.SWIPE_UP) {
-                    startActivity(new Intent(context, HumidityChartActivity.class));
+                    Intent humidity = new Intent(context, HumidityChartActivity.class);
+                    if (HumidityChartActivity.isActive) {
+                        humidity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    }
+                    startActivity(humidity);
+
                     return true;
                 }
                 return false;
@@ -293,7 +299,7 @@ public class TemperatureChartActivity extends Activity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.removeItem(R.id.main_menu);
+        menu.removeItem(R.id.temperature_chart);
         return true;
     }
 
@@ -301,13 +307,25 @@ public class TemperatureChartActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.pressure_chart:
-                startActivity(new Intent(this, PressureChartActivity.class));
-                return true;
-            case R.id.temperature_chart:
-                startActivity(new Intent(this, TemperatureChartActivity.class));
+                Intent pressure = new Intent(this, PressureChartActivity.class);
+                if (PressureChartActivity.isActive) {
+                    pressure.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                }
+                startActivity(pressure);
                 return true;
             case R.id.humidity_chart:
-                startActivity(new Intent(this, HumidityChartActivity.class));
+                Intent humidity = new Intent(this, HumidityChartActivity.class);
+                if (HumidityChartActivity.isActive) {
+                    humidity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                }
+                startActivity(humidity);
+                return true;
+            case R.id.main_menu:
+                Intent mainAct = new Intent(this, MainActivity.class);
+                if (MainActivity.isActive) {
+                    mainAct.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                }
+                startActivity(mainAct);
                 return true;
             default: return super.onOptionsItemSelected(item);
         }
