@@ -327,6 +327,9 @@ public class PressureChartActivity extends Activity {
                 }
                 startActivity(mainAct);
                 return true;
+            case R.id.info:
+                setContentView(R.layout.info_layout);
+                return true;
             default: return super.onOptionsItemSelected(item);
         }
     }

@@ -84,6 +84,9 @@ public class MainActivity extends Activity {
                 }
                 startActivity(humidity);
                 return true;
+            case R.id.info:
+                setContentView(R.layout.info_layout);
+                return true;
             default: return super.onOptionsItemSelected(item);
         }
     }
