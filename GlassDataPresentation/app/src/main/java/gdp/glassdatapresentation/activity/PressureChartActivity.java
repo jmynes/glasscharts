@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Random;
 
 import gdp.glassdatapresentation.R;
+import gdp.glassdatapresentation.entity.ChartRenderer;
 
 // AchartEngine lib imports
 
@@ -117,24 +118,32 @@ public class PressureChartActivity extends Activity {
      */
     private GraphicalView buildView(char chartType) {
         GraphicalView gView = null;
-        XYMultipleSeriesRenderer renderer = null;
+        ChartRenderer renderer;
 
         switch (chartType){
             case 'd':
                 // day data
-                gView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer("Pressure of the Day", "Time of Day", "Pressure (Pa)"));
+                renderer = new ChartRenderer("Pressure of the Day", "Time of Day", "Pressure (Pa)", SERIES_NR);
+                renderer.setRenderer();
+                gView = ChartFactory.getLineChartView(this, getDemoDataset(), renderer.getRenderer());
                 break;
             case 'w':
                 // week data
-                gView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer("Pressure by Week", "Week Date", "Pressure (Pa)"));
+                renderer = new ChartRenderer("Pressure by Week", "Week Date", "Pressure (Pa)", SERIES_NR);
+                renderer.setRenderer();
+                gView = ChartFactory.getLineChartView(this, getDemoDataset(), renderer.getRenderer());
                 break;
             case 'm':
                 //month data
-                gView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer("Pressure by Month", "Month", "Pressure (Pa)"));
+                renderer = new ChartRenderer("Pressure by Month", "Month", "Pressure (Pa)", SERIES_NR);
+                renderer.setRenderer();
+                gView = ChartFactory.getLineChartView(this, getDemoDataset(), renderer.getRenderer());
                 break;
             case 't':
                 // time chart
-                gView = ChartFactory.getTimeChartView(this, getDateDemoDataset(), getDemoRenderer("Time Chart", "x Values", "Pressure (Pa)"), null);
+                renderer = new ChartRenderer("Time Chart", "x Values", "Pressure (Pa)", SERIES_NR);
+                renderer.setRenderer();
+                gView = ChartFactory.getTimeChartView(this, getDateDemoDataset(), renderer.getRenderer(), null);
                 break;
         }
         return gView;
@@ -183,50 +192,6 @@ public class PressureChartActivity extends Activity {
             dataset.addSeries(series.toXYSeries());
         }
         return dataset;
-    }
-
-    /**
-     * Generates the chart appearence
-     */
-    private XYMultipleSeriesRenderer getDemoRenderer(String title, String xTitle, String yTitle) {
-        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-
-        renderer.setMargins(new int[]{30, 40, 15, 15});
-
-        // text style
-        renderer.setAxisTitleTextSize(16);
-        renderer.setChartTitleTextSize(20);
-        renderer.setLabelsTextSize(15);
-        renderer.setLegendTextSize(15);
-        renderer.setPointSize(5f);
-        renderer.setChartTitle(title);
-        renderer.setXTitle(xTitle);
-        renderer.setYTitle(yTitle);
-
-        // series style
-        XYSeriesRenderer r = new XYSeriesRenderer();
-        r.setColor(Color.BLUE);
-        r.setPointStyle(PointStyle.SQUARE);
-        r.setFillPoints(true);
-        renderer.addSeriesRenderer(r);
-        r = new XYSeriesRenderer();
-        r.setPointStyle(PointStyle.CIRCLE);
-        r.setColor(Color.GREEN);
-        r.setFillPoints(true);
-        renderer.addSeriesRenderer(r);
-        r = new XYSeriesRenderer();
-        r.setPointStyle(PointStyle.DIAMOND);
-        r.setColor(Color.MAGENTA);
-        r.setFillPoints(true);
-        renderer.addSeriesRenderer(r);
-
-        // axes style
-        renderer.setAxesColor(Color.DKGRAY);
-        renderer.setShowGridX(true);
-        renderer.setShowGridY(true);
-        renderer.setLabelsColor(Color.LTGRAY);
-
-        return renderer;
     }
 
     /**
