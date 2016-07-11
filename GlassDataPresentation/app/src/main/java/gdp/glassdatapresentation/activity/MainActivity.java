@@ -10,13 +10,22 @@ import android.view.MotionEvent;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
+import com.google.android.glass.widget.Slider;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import gdp.glassdatapresentation.R;
+import gdp.glassdatapresentation.entity.Address;
+import gdp.glassdatapresentation.entity.ChartEntry;
+import gdp.glassdatapresentation.service.ChartFeederTask;
+import gdp.glassdatapresentation.service.EntriesMonitor;
 
 public class MainActivity extends Activity {
     public static boolean isActive = false;
 
     private GestureDetector mGestureDetector;
+    private ArrayList<ChartEntry> entries;
 
     private final GestureDetector.BaseListener mBaseListener = new GestureDetector.BaseListener() {
         @Override
@@ -32,9 +41,12 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-
         setContentView(R.layout.main_layout);
         mGestureDetector = new GestureDetector(this.getApplicationContext()).setBaseListener(mBaseListener);
+        this.entries = new ArrayList<ChartEntry>();
+        this.getData(this.entries);
+        EntriesMonitor monitor = new EntriesMonitor(this.entries);
+        monitor.run();
     }
 
     protected void onResume(){
@@ -68,6 +80,7 @@ public class MainActivity extends Activity {
                 if (PressureChartActivity.isActive) {
                     pressure.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 }
+                pressure.putExtra("chart_data", this.entries);
                 startActivity(pressure);
                 return true;
             case R.id.temperature_chart:
@@ -75,6 +88,7 @@ public class MainActivity extends Activity {
                 if (TemperatureChartActivity.isActive) {
                     temperature.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 }
+                temperature.putExtra("chart_data", this.entries);
                 startActivity(temperature);
                 return true;
             case R.id.humidity_chart:
@@ -82,6 +96,7 @@ public class MainActivity extends Activity {
                 if (HumidityChartActivity.isActive) {
                     humidity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 }
+                humidity.putExtra("chart_data", this.entries);
                 startActivity(humidity);
                 return true;
             case R.id.info:
@@ -94,5 +109,21 @@ public class MainActivity extends Activity {
     @Override
     public boolean onGenericMotionEvent(MotionEvent event) {
         return mGestureDetector.onMotionEvent(event);
+    }
+
+    private void getData(ArrayList<ChartEntry> entries){
+        ChartFeederTask hourFeeder = new ChartFeederTask(Address.HOUR_DATA.getAddress(), entries);
+        ChartFeederTask yearFeeder = new ChartFeederTask(Address.YEAR_DATA.getAddress(), entries);
+        ChartFeederTask monthFeeder = new ChartFeederTask(Address.MONTH_DATA.getAddress(), entries);
+        hourFeeder.execute();
+        monthFeeder.execute();
+        yearFeeder.execute();
+        while(!(hourFeeder.finished && monthFeeder.finished && yearFeeder.finished)){
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

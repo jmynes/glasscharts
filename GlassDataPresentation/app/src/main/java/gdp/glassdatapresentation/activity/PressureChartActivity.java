@@ -32,9 +32,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
 
 import gdp.glassdatapresentation.R;
+import gdp.glassdatapresentation.entity.ChartEntry;
 import gdp.glassdatapresentation.entity.ChartRenderer;
+import gdp.glassdatapresentation.entity.DataScope;
 
 // AchartEngine lib imports
 
@@ -52,9 +56,6 @@ public class PressureChartActivity extends Activity {
     // control transitioning between activities
     public static boolean isActive = false;
 
-    // number of data series to be plotted
-    private static final int SERIES_NR = 3;
-
     // litener to process recognized gestures
     private GestureDetector mGestureDetector;
 
@@ -63,9 +64,14 @@ public class PressureChartActivity extends Activity {
     private CardScrollView mCardScrollView;
     private ChartViewCardScrollAdapter mAdapter;
 
+    private ArrayList<ChartEntry> entries;
+
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+
+        this.entries = (ArrayList<ChartEntry>) this.getIntent().getExtras().get("chart_data");
+
         createChartViews();
 
         mCardScrollView = new CardScrollView(this);
@@ -123,73 +129,44 @@ public class PressureChartActivity extends Activity {
         switch (chartType){
             case 'd':
                 // day data
-                renderer = new ChartRenderer("Pressure of the Day", "Time of Day", "Pressure (Pa)", SERIES_NR);
+                renderer = new ChartRenderer("Pressure of the Day", "Time of Day (hour)", "Pressure (avg)", this.getUniqueRooms().size());
                 renderer.setRenderer();
-                gView = ChartFactory.getLineChartView(this, getDemoDataset(), renderer.getRenderer());
+                gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.HOUR), renderer.getRenderer());
                 break;
             case 'w':
                 // week data
-                renderer = new ChartRenderer("Pressure by Week", "Week Date", "Pressure (Pa)", SERIES_NR);
+                renderer = new ChartRenderer("Pressure by Week", "Week Date", "Pressure (avg)", this.getUniqueRooms().size());
                 renderer.setRenderer();
-                gView = ChartFactory.getLineChartView(this, getDemoDataset(), renderer.getRenderer());
+                gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.WEEK), renderer.getRenderer());
                 break;
             case 'm':
                 //month data
-                renderer = new ChartRenderer("Pressure by Month", "Month", "Pressure (Pa)", SERIES_NR);
+                renderer = new ChartRenderer("Pressure by Month", "Month", "Pressure (avg)", this.getUniqueRooms().size());
                 renderer.setRenderer();
-                gView = ChartFactory.getLineChartView(this, getDemoDataset(), renderer.getRenderer());
-                break;
-            case 't':
-                // time chart
-                renderer = new ChartRenderer("Time Chart", "x Values", "Pressure (Pa)", SERIES_NR);
-                renderer.setRenderer();
-                gView = ChartFactory.getTimeChartView(this, getDateDemoDataset(), renderer.getRenderer(), null);
+                gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.MONTH), renderer.getRenderer());
                 break;
         }
         return gView;
     }
 
-    /**
-     * Generates Datasets to be added to a chart
-     */
-    private XYMultipleSeriesDataset getDemoDataset() {
-        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-        final int nr = 10;
-        Random r = new Random();
-        for (int i = 0; i < SERIES_NR; i++) {
-            XYSeries series = new XYSeries("Demo series " + (i + 1));
-            for (int k = 0; k < nr; k++) {
-                series.add(k, 20 + r.nextInt() % 100);
-            }
-            dataset.addSeries(series);
+    private Set<String> getUniqueRooms(){
+        Set<String> rooms = new TreeSet<String>();
+        for(ChartEntry ce : this.entries){
+            rooms.add(ce.getRoom());
         }
-        return dataset;
+        return rooms;
     }
 
-    private XYMultipleSeriesDataset getDateDemoDataset() {
+    private XYMultipleSeriesDataset getChartData(DataScope dataScope){
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-        final int nr = 10;
-        long value = new Date().getTime() - 3 * TimeChart.DAY;
-        Random r = new Random();
-        for (int i = 0; i < SERIES_NR; i++) {
-            TimeSeries series = new TimeSeries("Demo series " + (i + 1));
-            for (int k = 0; k < nr; k++) {
-                series.add(new Date(value + k * TimeChart.DAY / 4), 20 + r.nextInt() % 100);
+        for(String room : this.getUniqueRooms()){
+            XYSeries series = new XYSeries(room);
+            for(ChartEntry ce : this.entries){
+                if(ce.getRoom().equals(room) && ce.getScope().getText().equals(dataScope.getText())){
+                    series.add(ce.getTime(), ce.getPressure());
+                }
             }
             dataset.addSeries(series);
-        }
-        return dataset;
-    }
-    private XYMultipleSeriesDataset getBarDemoDataset() {
-        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-        final int nr = 10;
-        Random r = new Random();
-        for (int i = 0; i < SERIES_NR; i++) {
-            CategorySeries series = new CategorySeries("Demo series " + (i + 1));
-            for (int k = 0; k < nr; k++) {
-                series.add(100 + r.nextInt() % 100);
-            }
-            dataset.addSeries(series.toXYSeries());
         }
         return dataset;
     }
@@ -229,6 +206,7 @@ public class PressureChartActivity extends Activity {
     * Handle TAP and SWIPE UP events
      */
     private GestureDetector createGestureDetector(final Context context) {
+        final ArrayList<ChartEntry> entries = this.entries;
         GestureDetector gestureDetector = new GestureDetector(context);
         //Create a base listener for generic gestures
         gestureDetector.setBaseListener(new GestureDetector.BaseListener() {
@@ -242,6 +220,7 @@ public class PressureChartActivity extends Activity {
                     if (TemperatureChartActivity.isActive) {
                         temperature.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     }
+                    temperature.putExtra("chart_data", entries);
                     startActivity(temperature);
 
                     return true;
@@ -276,6 +255,7 @@ public class PressureChartActivity extends Activity {
                 if (TemperatureChartActivity.isActive) {
                     temperature.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 }
+                temperature.putExtra("chart_data", this.entries);
                 startActivity(temperature);
                 return true;
             case R.id.humidity_chart:
@@ -283,6 +263,7 @@ public class PressureChartActivity extends Activity {
                 if (HumidityChartActivity.isActive) {
                     humidity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 }
+                humidity.putExtra("chart_data", this.entries);
                 startActivity(humidity);
                 return true;
             case R.id.main_menu:
@@ -290,6 +271,7 @@ public class PressureChartActivity extends Activity {
                 if (MainActivity.isActive) {
                     mainAct.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 }
+                mainAct.putExtra("chart_data", this.entries);
                 startActivity(mainAct);
                 return true;
             case R.id.info:

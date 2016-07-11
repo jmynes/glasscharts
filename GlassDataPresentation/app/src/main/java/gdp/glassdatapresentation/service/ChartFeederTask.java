@@ -18,7 +18,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import gdp.glassdatapresentation.entity.ChartEntry;
-import gdp.glassdatapresentation.util.DateUtil;
+import gdp.glassdatapresentation.util.ParserUtil;
 
 /**
  * Created by cadu on 27/06/2016.
@@ -30,6 +30,7 @@ public class ChartFeederTask extends AsyncTask<Void, Void, Void> {
     private StringBuilder stringBuilder;
     private HttpClient client;
     private HttpGet httpGet;
+    public boolean finished;
 
     public ChartFeederTask(String address, ArrayList<ChartEntry> entries){
         this.address = address;
@@ -37,25 +38,30 @@ public class ChartFeederTask extends AsyncTask<Void, Void, Void> {
         this.stringBuilder = new StringBuilder();
         this.client = new DefaultHttpClient();
         this.httpGet = new HttpGet(this.address);
+        this.finished = false;
     }
 
     @Override
     protected Void doInBackground(Void... params) {
         try{
             JSONArray jsonArray = new JSONArray(this.getJSON());
-            this.entries.clear();
             for(int i = 0; i < jsonArray.length(); i ++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                this.entries.add(new ChartEntry(jsonObject.getString("device"),
-                        jsonObject.getDouble("temperature"),
-                        jsonObject.getDouble("pressure"),
-                        jsonObject.getDouble("humidity"),
-                        DateUtil.parseDateFromString(jsonObject.getString("datetime"))));
+                JSONObject idObject = jsonObject.getJSONObject("_id");
+                this.entries.add(
+                        new ChartEntry(idObject.getString("room"),
+                                jsonObject.getDouble("avgTemperature"),
+                                jsonObject.getDouble("avgPressure"),
+                                jsonObject.getDouble("avgHumidity"),
+                                idObject.getInt("time"),
+                                ParserUtil.parseDataType(idObject.getString("type"))
+                        )
+                );
             }
         }catch (Exception e){
             e.printStackTrace();
         }
-
+        this.finished = true;
         return null;
     }
 

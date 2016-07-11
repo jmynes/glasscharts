@@ -1,65 +1,76 @@
 package gdp.glassdatapresentation.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by cadu on 24/06/2016.
  */
-public class ChartEntry {
+public class ChartEntry implements Serializable{
 
-    private String device;
-    private double temperature;
-    private double pressure;
-    private double humidity;
-    private Date datetime;
+    private String room;
+    private double avgTemperature;
+    private double avgPressure;
+    private double avgHumidity;
+    private int time;
+    private DataScope scope;
 
     public ChartEntry(){}
 
-    public ChartEntry(String device, double temperature, double pressure, double humidity, Date datetime){
-        this.device = device;
-        this.temperature = temperature;
-        this.pressure = pressure;
-        this.humidity = humidity;
-        this.datetime = datetime;
+    public ChartEntry(String room, double avgTemperature, double avgPressure, double avgHumidity, int time, DataScope scope){
+        this.room = room;
+        this.avgTemperature = avgTemperature;
+        this.avgPressure = avgPressure;
+        this.avgHumidity = avgHumidity;
+        this.time = time;
+        this.scope = scope;
     }
 
-    public String getDevice() {
-        return device;
+    public String getRoom() {
+        return room;
     }
 
-    public void setDevice(String device) {
-        this.device = device;
+    public void setRoom(String room) {
+        this.room = room;
     }
 
-    public Date getTimestamp() {
-        return datetime;
+    public int getTime() {
+        return time;
     }
 
-    public void setTimestamp(Date datetime) {
-        this.datetime = datetime;
+    public void setTime(int time) {
+        this.time = time;
     }
 
     public double getHumidity() {
-        return humidity;
+        return avgHumidity;
     }
 
-    public void setHumidity(double humidity) {
-        this.humidity = humidity;
+    public void setHumidity(double avgHumidity) {
+        this.avgHumidity = avgHumidity;
     }
 
     public double getPressure() {
-        return pressure;
+        return avgPressure;
     }
 
-    public void setPressure(double pressure) {
-        this.pressure = pressure;
+    public void setPressure(double avgPressure) {
+        this.avgPressure = avgPressure;
     }
 
     public double getTemperature() {
-        return temperature;
+        return avgTemperature;
     }
 
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
+    public void setTemperature(double avgTemperature) {
+        this.avgTemperature = avgTemperature;
+    }
+
+    public DataScope getScope() {
+        return scope;
+    }
+
+    public void setScope(DataScope scope) {
+        this.scope = scope;
     }
 }
