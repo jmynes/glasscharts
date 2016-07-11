@@ -50,6 +50,9 @@ public class ChartRenderer extends XYMultipleSeriesRenderer {
         this.renderer.setChartTitle(title);
         this.renderer.setXTitle(xTitle);
         this.renderer.setYTitle(yTitle);
+        this.renderer.setShowGrid(true);
+        this.renderer.setGridColor(Color.WHITE);
+        this.renderer.setXRoundedLabels(false);
 
         // series style
         XYSeriesRenderer r;

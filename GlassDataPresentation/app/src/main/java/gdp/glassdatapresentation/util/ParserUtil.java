@@ -3,8 +3,12 @@ package gdp.glassdatapresentation.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.StringTokenizer;
 
+import gdp.glassdatapresentation.entity.ChartEntry;
+import gdp.glassdatapresentation.entity.ChartRenderer;
 import gdp.glassdatapresentation.entity.DataScope;
 
 /**
@@ -33,5 +37,29 @@ public class ParserUtil {
         }else{
             return null;
         }
+    }
+
+    public static void attatchMonthLabels(ChartRenderer renderer){
+        ArrayList<String> months = getMonths();
+        for(int i = 0; i < months.size() - 1; i++){
+            renderer.addXTextLabel(Double.parseDouble(String.valueOf(i)), months.get(i));
+        }
+    }
+
+    private static ArrayList<String> getMonths(){
+        ArrayList<String> months = new ArrayList<String>();
+        months.add("January");
+        months.add("February");
+        months.add("March");
+        months.add("April");
+        months.add("May");
+        months.add("June");
+        months.add("July");
+        months.add("August");
+        months.add("September");
+        months.add("October");
+        months.add("November");
+        months.add("December");
+        return months;
     }
 }
