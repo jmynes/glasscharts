@@ -131,18 +131,21 @@ public class PressureChartActivity extends Activity {
                 // day data
                 renderer = new ChartRenderer("Pressure of the Day", "Time of Day (hour)", "Pressure (avg)", this.getUniqueRooms().size());
                 renderer.setRenderer();
+                renderer.setRangeX(24);
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.HOUR), renderer.getRenderer());
                 break;
             case 'w':
                 // week data
                 renderer = new ChartRenderer("Pressure by Week", "Week Date", "Pressure (avg)", this.getUniqueRooms().size());
                 renderer.setRenderer();
+                renderer.setRangeX(5);
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.WEEK), renderer.getRenderer());
                 break;
             case 'm':
                 //month data
                 renderer = new ChartRenderer("Pressure by Month", "Month", "Pressure (avg)", this.getUniqueRooms().size());
                 renderer.setRenderer();
+                renderer.setMonthNames();
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.MONTH), renderer.getRenderer());
                 break;
         }

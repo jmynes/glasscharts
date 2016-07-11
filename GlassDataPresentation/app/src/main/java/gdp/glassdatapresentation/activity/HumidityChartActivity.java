@@ -131,18 +131,21 @@ public class HumidityChartActivity extends Activity {
                 // day data
                 renderer = new ChartRenderer("Humidity of the Day", "Time of Day", "Humidity (avg)", this.getUniqueRooms().size());
                 renderer.setRenderer();
+                renderer.setRangeX(24);
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.HOUR), renderer.getRenderer());
                 break;
             case 'w':
                 // week data
                 renderer = new ChartRenderer("Humidity by Week", "Week Date", "Humidity (avg)", this.getUniqueRooms().size());
                 renderer.setRenderer();
+                renderer.setRangeX(5);
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.WEEK), renderer.getRenderer());
                 break;
             case 'm':
                 //month data
                 renderer = new ChartRenderer("Humidity by Month", "Month", "Humidity (avg)", this.getUniqueRooms().size());
                 renderer.setRenderer();
+                renderer.setMonthNames();
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.MONTH), renderer.getRenderer());
                 break;
         }

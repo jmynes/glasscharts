@@ -4,6 +4,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 
 import org.achartengine.chart.PointStyle;
+import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
@@ -41,6 +42,8 @@ public class ChartRenderer extends XYMultipleSeriesRenderer {
 
         this.renderer.setMargins(new int[]{30, 40, 15, 15});
 
+        //this.renderer.setS
+
         // text style
         this.renderer.setAxisTitleTextSize(16);
         this.renderer.setChartTitleTextSize(20);
@@ -65,10 +68,27 @@ public class ChartRenderer extends XYMultipleSeriesRenderer {
         }
 
         // axes style
+        this.renderer.setShowTickMarks(true);
         this.renderer.setAxesColor(Color.DKGRAY);
         this.renderer.setShowGridX(true);
         this.renderer.setShowGridY(true);
         this.renderer.setLabelsColor(Color.LTGRAY);
+    }
+
+    // number of X ticks
+    public void setRangeX(int maxX){
+        this.renderer.setXLabels(maxX);
+    }
+
+    public void setMonthNames() {
+        String[] months = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+        // remove number labels
+        renderer.setXLabels(0);
+
+        for (int x = 1; x <= 12; x++) {
+            this.renderer.addXTextLabel(x, months[x - 1]);
+        }
+        this.renderer.setShowCustomTextGridX(true);
     }
 
     public XYMultipleSeriesRenderer getRenderer() {

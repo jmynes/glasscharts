@@ -132,18 +132,21 @@ public class TemperatureChartActivity extends Activity {
                 // day data
                 renderer = new ChartRenderer("Temperature of the Day", "Time of Day", "Temperature (avg)", this.getUniqueRooms().size());
                 renderer.setRenderer();
+                renderer.setRangeX(24);
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.HOUR), renderer.getRenderer());
                 break;
             case 'w':
                 // week data
                 renderer = new ChartRenderer("Temperature of the Week", "Week", "Temperature (avg)", this.getUniqueRooms().size());
                 renderer.setRenderer();
+                renderer.setRangeX(5);
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.WEEK), renderer.getRenderer());
                 break;
             case 'm':
                 //month data
                 renderer = new ChartRenderer("Temperature by Month", "Month", "Temperature (avg)", this.getUniqueRooms().size());
                 renderer.setRenderer();
+                renderer.setMonthNames();
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.MONTH), renderer.getRenderer());
                 break;
         }

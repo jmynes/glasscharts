@@ -22,8 +22,9 @@ public class ChartEntry implements Serializable{
         this.avgTemperature = avgTemperature;
         this.avgPressure = avgPressure;
         this.avgHumidity = avgHumidity;
-        this.time = time;
         this.scope = scope;
+        this.time = time;
+
     }
 
     public String getRoom() {
