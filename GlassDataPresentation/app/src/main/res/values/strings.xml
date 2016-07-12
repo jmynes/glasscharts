@@ -6,11 +6,11 @@
     <string name="temperature_chart">Temperature Chart</string>
     <string name="pressure_chart">Pressure Chart</string>
     <string name="humidity_chart">Humidity Chart</string>
-    <string name="main_menu">Main Menu</string>
+    <string name="main_menu">Home</string>
     <string name="msg_tap_to_menu">Please tap to launch menu</string>
     <string name="info_up">Navigate between datas</string>
     <string name="info_right">Change data scope</string>
-    <string name="app_info">Help</string>
+    <string name="app_info">Info</string>
     <string name="info_text">Options inside each chart</string>
 
 

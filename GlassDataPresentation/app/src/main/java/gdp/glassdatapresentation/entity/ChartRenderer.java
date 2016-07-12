@@ -40,21 +40,19 @@ public class ChartRenderer extends XYMultipleSeriesRenderer {
     public void setRenderer() {
         this.renderer = new XYMultipleSeriesRenderer();
 
-        this.renderer.setMargins(new int[]{30, 40, 15, 15});
-
-        //this.renderer.setS
+        // margins top, left, bottom, right
+        this.renderer.setMargins(new int[]{35, 43, 20, 10});
+        //this.renderer.setMarginsColor(Color.argb(0x00, 0xff, 0xff, 0x00)); // transparent margins - comment ot be black
 
         // text style
-        this.renderer.setAxisTitleTextSize(16);
-        this.renderer.setChartTitleTextSize(20);
-        this.renderer.setLabelsTextSize(15);
-        this.renderer.setLegendTextSize(15);
+        this.renderer.setAxisTitleTextSize(20);
+        this.renderer.setChartTitleTextSize(24);
+        this.renderer.setLabelsTextSize(18);
+        this.renderer.setLegendTextSize(18);
         this.renderer.setPointSize(5f);
         this.renderer.setChartTitle(title);
         this.renderer.setXTitle(xTitle);
         this.renderer.setYTitle(yTitle);
-        this.renderer.setShowGrid(true);
-        this.renderer.setGridColor(Color.WHITE);
         this.renderer.setXRoundedLabels(false);
 
         // series style
@@ -69,15 +67,62 @@ public class ChartRenderer extends XYMultipleSeriesRenderer {
 
         // axes style
         this.renderer.setShowTickMarks(true);
-        this.renderer.setAxesColor(Color.DKGRAY);
-        this.renderer.setShowGridX(true);
-        this.renderer.setShowGridY(true);
-        this.renderer.setLabelsColor(Color.LTGRAY);
+        this.renderer.setAxesColor(Color.WHITE);
+        this.renderer.setShowGrid(true);
+        this.renderer.setLabelsColor(Color.WHITE);
+    }
+
+    public void setBarRenderer() {
+        this.renderer = new XYMultipleSeriesRenderer();
+
+        // margins top, left, bottom, right
+        this.renderer.setMargins(new int[]{35, 43, 20, 10});
+        //this.renderer.setMarginsColor(Color.argb(0x00, 0xff, 0xff, 0x00)); // transparent margins - comment ot be black
+
+        // text style
+        this.renderer.setAxisTitleTextSize(20);
+        this.renderer.setChartTitleTextSize(24);
+        this.renderer.setLabelsTextSize(18);
+        this.renderer.setLegendTextSize(18);
+        this.renderer.setChartTitle(title);
+        this.renderer.setXTitle(xTitle);
+        this.renderer.setYTitle(yTitle);
+        this.renderer.setShowGrid(true);
+        this.renderer.setXRoundedLabels(false);
+
+        // bar style
+        this.renderer.setBarSpacing(0.5);
+
+        // series style
+        XYSeriesRenderer r;
+        for (int i = 0; i < this.numSeries; i++) {
+            r = new XYSeriesRenderer();
+            r.setColor(colorStyles.get(i % 5));
+            this.renderer.addSeriesRenderer(r);
+        }
+
+        // axes style
+        this.renderer.setShowTickMarks(true);
+        this.renderer.setAxesColor(Color.WHITE);
+        this.renderer.setShowGrid(true);
+        this.renderer.setLabelsColor(Color.WHITE);
+
     }
 
     // number of X ticks
-    public void setRangeX(int maxX){
+    public void setTickX(int maxX){
         this.renderer.setXLabels(maxX);
+    }
+
+    // Y range
+    public void setRangeY(double minY, double maxY) {
+        this.renderer.setYAxisMin(minY);
+        this.renderer.setYAxisMax(maxY);
+    }
+
+    public void setRangeX(double minX, double maxX) {
+        this.renderer.setXAxisMin(minX);
+        this.renderer.setXAxisMax(maxX);
     }
 
     public void setMonthNames() {

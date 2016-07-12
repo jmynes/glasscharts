@@ -22,6 +22,7 @@ import gdp.glassdatapresentation.service.ChartFeederTask;
 import gdp.glassdatapresentation.service.EntriesMonitor;
 
 public class MainActivity extends Activity {
+    // control transitioning between activities and info view
     public static boolean isActive = false;
 
     private GestureDetector mGestureDetector;
@@ -100,7 +101,8 @@ public class MainActivity extends Activity {
                 startActivity(humidity);
                 return true;
             case R.id.info:
-                setContentView(R.layout.info_layout);
+                Intent info = new Intent(this, InfoActivity.class);
+                startActivity(info);
                 return true;
             default: return super.onOptionsItemSelected(item);
         }

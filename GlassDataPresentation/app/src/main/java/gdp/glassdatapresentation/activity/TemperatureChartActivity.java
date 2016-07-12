@@ -53,7 +53,7 @@ import gdp.glassdatapresentation.entity.DataScope;
  * @see <a href="https://developers.google.com/glass/develop/gdk/touch">GDK Developer Guide</a>
  */
 public class TemperatureChartActivity extends Activity {
-    // control transitioning between activities
+    // control transitioning between activities and info view
     public static boolean isActive = false;
 
     // litener to process recognized gestures
@@ -130,21 +130,22 @@ public class TemperatureChartActivity extends Activity {
         switch (chartType){
             case 'd':
                 // day data
-                renderer = new ChartRenderer("Temperature of the Day", "Time of Day", "Temperature (avg)", this.getUniqueRooms().size());
+                renderer = new ChartRenderer("Average Temperature of the Day", "Time (h:m:s)", "Temperature (°F)", this.getUniqueRooms().size());
                 renderer.setRenderer();
-                renderer.setRangeX(24);
+                renderer.setTickX(24);
+                //renderer.setRangeX(0, 24);
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.HOUR), renderer.getRenderer());
                 break;
             case 'w':
                 // week data
-                renderer = new ChartRenderer("Temperature of the Week", "Week", "Temperature (avg)", this.getUniqueRooms().size());
+                renderer = new ChartRenderer("Average Temperature of the Week", "Week", "Temperature (°F)", this.getUniqueRooms().size());
                 renderer.setRenderer();
-                renderer.setRangeX(5);
+                renderer.setTickX(5);
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.WEEK), renderer.getRenderer());
                 break;
             case 'm':
                 //month data
-                renderer = new ChartRenderer("Temperature by Month", "Month", "Temperature (avg)", this.getUniqueRooms().size());
+                renderer = new ChartRenderer("Average Temperature by Month", "Month", "Temperature (°F)", this.getUniqueRooms().size());
                 renderer.setRenderer();
                 renderer.setMonthNames();
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.MONTH), renderer.getRenderer());
@@ -279,7 +280,8 @@ public class TemperatureChartActivity extends Activity {
                 startActivity(mainAct);
                 return true;
             case R.id.info:
-                setContentView(R.layout.info_layout);
+                Intent infoAct = new Intent(this, InfoActivity.class);
+                startActivity(infoAct);
                 return true;
             default: return super.onOptionsItemSelected(item);
         }

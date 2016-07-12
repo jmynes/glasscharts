@@ -27,6 +27,7 @@
         <activity android:name=".activity.TemperatureChartActivity" />
         <activity android:name=".activity.PressureChartActivity" />
         <activity android:name=".activity.HumidityChartActivity"/>
+        <activity android:name=".activity.InfoActivity"/>
     </application>
 
 </manifest>

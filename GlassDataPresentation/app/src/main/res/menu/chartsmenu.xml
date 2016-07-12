@@ -29,5 +29,6 @@
         android:title="@string/main_menu"/>
     <item
         android:id="@+id/info"
+        android:icon="@drawable/ic_info"
         android:title="@string/app_info"/>
 </menu>

@@ -19,6 +19,7 @@ import com.google.android.glass.widget.CardScrollView;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
+import org.achartengine.chart.BarChart;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.chart.TimeChart;
 import org.achartengine.model.CategorySeries;
@@ -53,7 +54,7 @@ import gdp.glassdatapresentation.entity.DataScope;
  * @see <a href="https://developers.google.com/glass/develop/gdk/touch">GDK Developer Guide</a>
  */
 public class HumidityChartActivity extends Activity {
-    // control transitioning between activities
+    // control transitioning between activities and info view
     public static boolean isActive = false;
 
     // litener to process recognized gestures
@@ -129,24 +130,28 @@ public class HumidityChartActivity extends Activity {
         switch (chartType){
             case 'd':
                 // day data
-                renderer = new ChartRenderer("Humidity of the Day", "Time of Day", "Humidity (avg)", this.getUniqueRooms().size());
-                renderer.setRenderer();
-                renderer.setRangeX(24);
-                gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.HOUR), renderer.getRenderer());
+                renderer = new ChartRenderer("Average Humidity of the Day", "Time (h:m:s)", "Humidity (%)", this.getUniqueRooms().size());
+                renderer.setBarRenderer();
+                renderer.setTickX(24);
+                //renderer.setRangeX(0, 24);
+                renderer.setRangeY(0, 100);
+                gView = ChartFactory.getBarChartView(this, this.getChartData(DataScope.HOUR), renderer.getRenderer(), BarChart.Type.DEFAULT);
                 break;
             case 'w':
                 // week data
-                renderer = new ChartRenderer("Humidity by Week", "Week Date", "Humidity (avg)", this.getUniqueRooms().size());
-                renderer.setRenderer();
-                renderer.setRangeX(5);
-                gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.WEEK), renderer.getRenderer());
+                renderer = new ChartRenderer("Average Humidity by Week", "Week", "Humidity (%)", this.getUniqueRooms().size());
+                renderer.setBarRenderer();
+                renderer.setTickX(5);
+                renderer.setRangeY(0, 100);
+                gView = ChartFactory.getBarChartView(this, this.getChartData(DataScope.WEEK), renderer.getRenderer(), BarChart.Type.DEFAULT);
                 break;
             case 'm':
                 //month data
-                renderer = new ChartRenderer("Humidity by Month", "Month", "Humidity (avg)", this.getUniqueRooms().size());
-                renderer.setRenderer();
+                renderer = new ChartRenderer("Average Humidity by Month", "Month", "Humidity (%)", this.getUniqueRooms().size());
+                renderer.setBarRenderer();
                 renderer.setMonthNames();
-                gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.MONTH), renderer.getRenderer());
+                renderer.setRangeY(0,100);
+                gView = ChartFactory.getBarChartView(this, this.getChartData(DataScope.MONTH), renderer.getRenderer(), BarChart.Type.DEFAULT);
                 break;
         }
         return gView;
@@ -279,7 +284,8 @@ public class HumidityChartActivity extends Activity {
                 startActivity(mainAct);
                 return true;
             case R.id.info:
-                setContentView(R.layout.info_layout);
+                Intent infoAct = new Intent(this, InfoActivity.class);
+                startActivity(infoAct);
                 return true;
             default: return super.onOptionsItemSelected(item);
         }
