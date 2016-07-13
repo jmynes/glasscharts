@@ -1,18 +1,13 @@
 package gdp.glassdatapresentation.entity;
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 
 import org.achartengine.chart.PointStyle;
-import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by Cristina on 6/28/2016.

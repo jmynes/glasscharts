@@ -11,27 +11,35 @@
         android:layout_height="@dimen/glass_card_body_height"
         android:layout_marginLeft="@dimen/glass_card_margin"
         android:layout_marginTop="@dimen/glass_card_margin"
-        android:layout_marginRight="@dimen/glass_card_margin"
-        >
-    <TextView
-        android:id="@+id/tap_msg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:background="@android:color/black"
-        android:textSize="50px"
-        android:gravity="center"
-        android:text="@string/trigger"/>
+        android:layout_marginRight="@dimen/glass_card_margin">
+
+        <ImageView
+            android:id="@+id/app_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/ic_glass_charts_logo" />
+
+        <TextView
+            android:id="@+id/tap_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_below="@+id/app_logo"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:background="@android:color/black"
+            android:textSize="60px"
+            android:gravity="center"
+            android:text="@string/trigger"/>
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/footer_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
+        android:layout_gravity="bottom"
         android:layout_marginLeft="@dimen/glass_card_margin"
-        android:layout_marginBottom="@dimen/glass_card_footer_margin"
+        android:layout_marginBottom="@dimen/glass_card_body_half_height"
         android:layout_marginRight="@dimen/glass_card_margin"
         android:orientation="horizontal"
 

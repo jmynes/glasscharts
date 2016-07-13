@@ -6,6 +6,7 @@
     <string name="temperature_chart">Temperature Chart</string>
     <string name="pressure_chart">Pressure Chart</string>
     <string name="humidity_chart">Humidity Chart</string>
+    <string name="show_charts">Show Measurements</string>
     <string name="main_menu">Home</string>
     <string name="msg_tap_to_menu">Please tap to launch menu</string>
     <string name="info_up">Swipe up to navigate among data types</string>
