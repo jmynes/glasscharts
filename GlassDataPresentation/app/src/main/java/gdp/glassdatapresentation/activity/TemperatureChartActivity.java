@@ -124,6 +124,7 @@ public class TemperatureChartActivity extends Activity {
      */
     private GraphicalView buildView(char chartType) {
         GraphicalView gView = null;
+        boolean fillLine = false;
         // Charts renderer
         ChartRenderer renderer;
 
@@ -131,7 +132,7 @@ public class TemperatureChartActivity extends Activity {
             case 'd':
                 // day data
                 renderer = new ChartRenderer("Average Temperature of the Day", "Time (h:m:s)", "Temperature (°F)", this.getUniqueRooms().size());
-                renderer.setRenderer();
+                renderer.setRenderer(fillLine);
                 renderer.setTickX(24);
                 //renderer.setRangeX(0, 24);
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.HOUR), renderer.getRenderer());
@@ -139,14 +140,14 @@ public class TemperatureChartActivity extends Activity {
             case 'w':
                 // week data
                 renderer = new ChartRenderer("Average Temperature of the Week", "Week", "Temperature (°F)", this.getUniqueRooms().size());
-                renderer.setRenderer();
+                renderer.setRenderer(fillLine);
                 renderer.setTickX(5);
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.WEEK), renderer.getRenderer());
                 break;
             case 'm':
                 //month data
                 renderer = new ChartRenderer("Average Temperature by Month", "Month", "Temperature (°F)", this.getUniqueRooms().size());
-                renderer.setRenderer();
+                renderer.setRenderer(fillLine);
                 renderer.setMonthNames();
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.MONTH), renderer.getRenderer());
                 break;

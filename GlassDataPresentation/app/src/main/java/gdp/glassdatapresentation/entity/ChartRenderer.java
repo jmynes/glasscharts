@@ -37,11 +37,11 @@ public class ChartRenderer extends XYMultipleSeriesRenderer {
         this.numSeries = numSeries;
     }
 
-    public void setRenderer() {
+    public void setRenderer(boolean fillLine) {
         this.renderer = new XYMultipleSeriesRenderer();
 
         // margins top, left, bottom, right
-        this.renderer.setMargins(new int[]{35, 43, 20, 10});
+        this.renderer.setMargins(new int[]{35, 43, 20, 15});
         //this.renderer.setMarginsColor(Color.argb(0x00, 0xff, 0xff, 0x00)); // transparent margins - comment ot be black
 
         // text style
@@ -59,9 +59,14 @@ public class ChartRenderer extends XYMultipleSeriesRenderer {
         XYSeriesRenderer r;
         for (int i = 0; i < this.numSeries; i++) {
             r = new XYSeriesRenderer();
-            r.setColor(colorStyles.get(i%5));
-            r.setPointStyle(pointStyles.get(i%5));
+            r.setColor(colorStyles.get(i % 5));
+            r.setPointStyle(pointStyles.get(i % 5));
             r.setFillPoints(true);
+            if (fillLine) {
+                r.setFillBelowLine(true);
+                r.setFillBelowLineColor((colorStyles.get(i % 5) & 0x00FFFFFF) | 0x40000000);
+            }
+
             this.renderer.addSeriesRenderer(r);
         }
 
@@ -76,7 +81,7 @@ public class ChartRenderer extends XYMultipleSeriesRenderer {
         this.renderer = new XYMultipleSeriesRenderer();
 
         // margins top, left, bottom, right
-        this.renderer.setMargins(new int[]{35, 43, 20, 10});
+        this.renderer.setMargins(new int[]{35, 43, 20, 15});
         //this.renderer.setMarginsColor(Color.argb(0x00, 0xff, 0xff, 0x00)); // transparent margins - comment ot be black
 
         // text style
@@ -108,6 +113,7 @@ public class ChartRenderer extends XYMultipleSeriesRenderer {
         this.renderer.setLabelsColor(Color.WHITE);
 
     }
+
 
     // number of X ticks
     public void setTickX(int maxX){

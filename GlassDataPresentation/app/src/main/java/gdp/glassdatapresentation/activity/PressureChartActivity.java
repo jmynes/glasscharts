@@ -124,13 +124,14 @@ public class PressureChartActivity extends Activity {
      */
     private GraphicalView buildView(char chartType) {
         GraphicalView gView = null;
+        boolean fillLine = true;
         ChartRenderer renderer;
 
         switch (chartType){
             case 'd':
                 // day data
                 renderer = new ChartRenderer("Average Pressure of the Day", "Time (h:m:s)", "Pressure (Pa)", this.getUniqueRooms().size());
-                renderer.setRenderer();
+                renderer.setRenderer(fillLine);
                 renderer.setTickX(24);
                 //renderer.setRangeX(0, 24);
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.HOUR), renderer.getRenderer());
@@ -138,14 +139,14 @@ public class PressureChartActivity extends Activity {
             case 'w':
                 // week data
                 renderer = new ChartRenderer("Average Pressure by Week", "Week", "Pressure (Pa)", this.getUniqueRooms().size());
-                renderer.setRenderer();
+                renderer.setRenderer(fillLine);
                 renderer.setTickX(5);
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.WEEK), renderer.getRenderer());
                 break;
             case 'm':
                 //month data
                 renderer = new ChartRenderer("Average Pressure by Month", "Month", "Pressure (Pa)", this.getUniqueRooms().size());
-                renderer.setRenderer();
+                renderer.setRenderer(fillLine);
                 renderer.setMonthNames();
                 gView = ChartFactory.getLineChartView(this, this.getChartData(DataScope.MONTH), renderer.getRenderer());
                 break;
