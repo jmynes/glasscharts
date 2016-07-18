@@ -91,7 +91,7 @@ public class MainActivity extends Activity {
 
         return super.onPrepareOptionsMenu(menu);
     }
-    
+
     public boolean onPreparePanel(int featureId, View view, Menu menu) {
         if (featureId == WindowUtils.FEATURE_VOICE_COMMANDS) {
             // toggle this boolean on and off based on some criteria
