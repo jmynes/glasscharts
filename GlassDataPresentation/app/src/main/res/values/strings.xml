@@ -11,7 +11,7 @@
     <string name="msg_tap_to_menu">Please tap to launch menu</string>
     <string name="info_up">Swipe up to navigate among data types</string>
     <string name="info_right">Swipe horizontally to change data scope</string>
-    <string name="app_info">Info</string>
+    <string name="app_info">Instructions</string>
     <string name="info_text">Options inside each chart</string>
 
 
