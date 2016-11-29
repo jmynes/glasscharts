@@ -5,9 +5,9 @@ package gdp.glassdatapresentation.entity;
  */
 public enum Address {
 
-    MONTH_DATA("https://iit-data-presentation-server.herokuapp.com/getMonthData"),
-    HOUR_DATA("https://iit-data-presentation-server.herokuapp.com/getHourData"),
-    YEAR_DATA("https://iit-data-presentation-server.herokuapp.com/getYearData");
+    MONTH_DATA("http://mynes.me/glassData/getMonthData"),
+    HOUR_DATA("http://mynes.me/glassData/getHourData"),
+    YEAR_DATA("http://mynes.me/glassData/getYearData");
 
     private final String address;
 

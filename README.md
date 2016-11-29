@@ -18,10 +18,10 @@ Repository contents:
 Currently the server and the database are both deployed at Heroku.<br>
 There are four ways to access data:<br>
 <ul>
-<li>Reach https://iit-data-presentation-server.herokuapp.com/ to get all the data stored in the database.</li>
-<li>Reach https://iit-data-presentation-server.herokuapp.com/getHourData to get hourly data from a day.</li>
-<li>Reach https://iit-data-presentation-server.herokuapp.com/getMonthData to get weekly data from a month.</li>
-<li>Reach https://iit-data-presentation-server.herokuapp.com/getYearData to get monthly data from a year.</li>
+<li>Reach http://mynes.me/glassData/ to get all the data stored in the database.</li>
+<li>Reach http://mynes.me/glassData/getHourData to get hourly data from a day.</li>
+<li>Reach http://mynes.me/glassData/getMonthData to get weekly data from a month.</li>
+<li>Reach http://mynes.me/glassData/getYearData to get monthly data from a year.</li>
 </ul>
 
 ###Running the application
